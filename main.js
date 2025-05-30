@@ -994,3 +994,6 @@ window.addEventListener('DOMContentLoaded', async function() {
   renderData(rawTTNData);
   renderCsvTable(rawCSVData);
 });
+
+// Semua program grafik Chart.js sudah terhubung dan update otomatis.
+// Tidak ada perubahan yang diperlukan.
