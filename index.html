@@ -372,7 +372,7 @@
             <!--
               Statistik deskriptif keseluruhan, distribusi SF, tabel interval, dan grafik
             -->
-            <b style="font-size:1.08em; display:block; margin-bottom:0.8em;">Statistik Deskriptif keseluruhan</b>
+            <b style="font-size:1.08em; display:block; margin-bottom:0.8em;">Statistik Deskriptif Keseluruhan</b>
             <div style="font-size:0.99em;">
               <div class="compare-table-scroll">
                 <table id="compare-stats-table">
@@ -389,8 +389,13 @@
                   </tbody>
                 </table>
               </div>
+              <!-- Tambahkan tombol export dan canvas untuk Statistik Deskriptif Keseluruhan -->
+              <div style="margin-top:0.7em;">
+                <button type="button" onclick="exportChart('overallStatsChart', 'Statistik_Deskriptif_Keseluruhan.png')" style="margin-bottom:0.5em;">Export Grafik Statistik Deskriptif Keseluruhan</button>
+                <canvas id="overallStatsChart" height="120" aria-label="Grafik Statistik Deskriptif Keseluruhan" style="background:#fff;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,0.04);"></canvas>
+              </div>
               <div style="margin-top:1.2em;" class="compare-table-scroll">
-                <b>Distribusi SF (frame &amp; persentase):</b>
+                <b>Distribusi Spreading Factor Keseluruhan</b>
                 <table id="compare-sf-table" style="margin-top:0.8em;">
                   <caption style="position:absolute;left:-9999px;">Tabel distribusi Spreading Factor TTN dan Chirpstack</caption>
                   <thead>
@@ -405,9 +410,14 @@
                     <!-- Akan diisi oleh JS -->
                   </tbody>
                 </table>
+                <!-- Tambahkan tombol export dan canvas untuk Distribusi SF Keseluruhan -->
+                <div style="margin-top:0.7em;">
+                  <button type="button" onclick="exportChart('overallSFChart', 'Distribusi_SF_Keseluruhan.png')" style="margin-bottom:0.5em;">Export Grafik Distribusi SF Keseluruhan</button>
+                  <canvas id="overallSFChart" height="120" aria-label="Grafik Distribusi SF Keseluruhan" style="background:#fff;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,0.04);"></canvas>
+                </div>
               </div>
               <!-- TABEL BARU: Statistik Per Interval -->
-              <div style="margin-top:1.8em;" class="compare-table-scroll">
+              <div style="margin-top:1.8em" class="compare-table-scroll">
                 <b>Statistik Deskriptif per Interval</b>
                 <table id="compare-interval-table" style="margin-top:0.8em;">
                   <caption style="position:absolute;left:-9999px;">Tabel statistik per interval TTN dan Chirpstack</caption>
@@ -428,19 +438,41 @@
                     <!-- Akan diisi oleh JS -->
                   </tbody>
                 </table>
+                <!-- Tambahkan tabel distribusi SF per interval -->
+                <div style="margin-top:1.5em;">
+                  <b>Distribusi Spreading Factor per Interval</b>
+                  <table id="compare-sf-interval-table" style="margin-top:0.8em;">
+                    <caption style="position:absolute;left:-9999px;">Tabel distribusi SF per interval TTN dan Chirpstack</caption>
+                    <thead>
+                      <tr>
+                        <th>Interval (detik)</th>
+                        <th>Platform</th>
+                        <th>SF7</th>
+                        <th>SF8</th>
+                        <th>SF10</th>
+                      </tr>
+                    </thead>
+                    <tbody id="compare-sf-interval-tbody">
+                      <!-- Akan diisi oleh JS -->
+                    </tbody>
+                  </table>
+                  <!-- Tambahkan tombol dan canvas untuk grafik SF per interval -->
+                  <div style="margin-top:1.5em;">
+                    <button type="button" onclick="exportChart('sfChart', 'Distribusi_Spreading_Factor_per_Interval.png')" style="margin-bottom:0.5em;">Export Grafik Distribusi SF per Interval</button>
+                    <canvas id="sfChart" height="140" aria-label="Grafik Distribusi SF TTN vs Chirpstack" style="background:#fff;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,0.04);"></canvas>
+                  </div>
+                </div>
                 <!-- Tambahkan tombol dan canvas untuk diagram PDR -->
                 <div style="margin-top:1.5em;">
-                  <button type="button" onclick="exportChart('pdrChart', 'PDR_TTN_vs_Chirpstack.png')" style="margin-bottom:0.5em;">Export Grafik PDR</button>
+                  <button type="button" onclick="exportChart('pdrChart', 'PDR_per_Interval.png')" style="margin-bottom:0.5em;">Export Grafik PDR per Interval</button>
                   <canvas id="pdrChart" height="110" aria-label="Diagram PDR TTN vs Chirpstack" style="background:#fff;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,0.04);"></canvas>
                 </div>
-                <!-- Tambahkan tombol dan canvas untuk diagram RSSI -->
                 <div style="margin-top:1.5em;">
-                  <button type="button" onclick="exportChart('rssiChart', 'RSSI_TTN_vs_Chirpstack.png')" style="margin-bottom:0.5em;">Export Grafik RSSI</button>
+                  <button type="button" onclick="exportChart('rssiChart', 'RSSI_per_Interval.png')" style="margin-bottom:0.5em;">Export Grafik RSSI per Interval</button>
                   <canvas id="rssiChart" height="110" aria-label="Diagram RSSI TTN vs Chirpstack" style="background:#fff;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,0.04);"></canvas>
                 </div>
-                <!-- Tambahkan tombol dan canvas untuk diagram SNR -->
                 <div style="margin-top:1.5em;">
-                  <button type="button" onclick="exportChart('snrChart', 'SNR_TTN_vs_Chirpstack.png')" style="margin-bottom:0.5em;">Export Grafik SNR</button>
+                  <button type="button" onclick="exportChart('snrChart', 'SNR_per_Interval.png')" style="margin-bottom:0.5em;">Export Grafik SNR per Interval</button>
                   <canvas id="snrChart" height="110" aria-label="Diagram SNR TTN vs Chirpstack" style="background:#fff;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,0.04);"></canvas>
                 </div>
               </div>
@@ -750,6 +782,59 @@
           }
         });
       }
+      // Grafik Distribusi SF per interval
+      function renderSFChart(intervals, ttnSF7, ttnSF8, ttnSF10, csvSF7, csvSF8, csvSF10) {
+        if (window.sfChartObj) window.sfChartObj.destroy();
+        const ctx = document.getElementById('sfChart').getContext('2d');
+        window.sfChartObj = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: intervals,
+            datasets: [
+              {
+                label: 'TTN SF7',
+                data: ttnSF7,
+                backgroundColor: '#2d8cf0'
+              },
+              {
+                label: 'TTN SF8',
+                data: ttnSF8,
+                backgroundColor: '#8cd0fa'
+              },
+              {
+                label: 'TTN SF10',
+                data: ttnSF10,
+                backgroundColor: '#b0e0ff'
+              },
+              {
+                label: 'Chirpstack SF7',
+                data: csvSF7,
+                backgroundColor: '#f5c542'
+              },
+              {
+                label: 'Chirpstack SF8',
+                data: csvSF8,
+                backgroundColor: '#ffe08a'
+              },
+              {
+                label: 'Chirpstack SF10',
+                data: csvSF10,
+                backgroundColor: '#ffeec2'
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: { position: 'top' },
+              title: { display: true, text: 'Distribusi Frame per Spreading Factor (SF) per Interval' }
+            },
+            scales: {
+              y: { beginAtZero: true, title: { display: true, text: 'Jumlah Frame' } }
+            }
+          }
+        });
+      }
       // Fungsi export grafik Chart.js ke PNG
       function exportChart(canvasId, filename) {
         const canvas = document.getElementById(canvasId);
@@ -788,8 +873,165 @@
           renderPDRChart(intervals, ttnPdr, csvPdr);
           renderRSSIChart(intervals, ttnRssi, csvRssi);
           renderSNRChart(intervals, ttnSnr, csvSnr);
+
+          // Ambil data SF dari tabel distribusi SF per interval
+          const sfTable = document.getElementById('compare-sf-interval-tbody');
+          if (sfTable) {
+            const sfRows = Array.from(sfTable.querySelectorAll('tr'));
+            // Data: urutannya [TTN, Chirpstack, TTN, Chirpstack, ...] per interval
+            const ttnSF7 = [], ttnSF8 = [], ttnSF10 = [], csvSF7 = [], csvSF8 = [], csvSF10 = [], sfIntervals = [];
+            for (let i = 0; i < sfRows.length; i += 2) {
+              // TTN row
+              const ttnTds = sfRows[i].querySelectorAll('td');
+              // Chirpstack row
+              const csvTds = sfRows[i + 1]?.querySelectorAll('td');
+              if (ttnTds.length >= 5 && csvTds && csvTds.length >= 5) {
+                sfIntervals.push(ttnTds[0].textContent.trim());
+                ttnSF7.push(Number((ttnTds[2].textContent.trim().split('(')[0] || '0').replace(',', '.')));
+                ttnSF8.push(Number((ttnTds[3].textContent.trim().split('(')[0] || '0').replace(',', '.')));
+                ttnSF10.push(Number((ttnTds[4].textContent.trim().split('(')[0] || '0').replace(',', '.')));
+                csvSF7.push(Number((csvTds[2].textContent.trim().split('(')[0] || '0').replace(',', '.')));
+                csvSF8.push(Number((csvTds[3].textContent.trim().split('(')[0] || '0').replace(',', '.')));
+                csvSF10.push(Number((csvTds[4].textContent.trim().split('(')[0] || '0').replace(',', '.')));
+              }
+            }
+            renderSFChart(sfIntervals, ttnSF7, ttnSF8, ttnSF10, csvSF7, csvSF8, csvSF10);
+          }
         };
       }
+      // Grafik Statistik Deskriptif Keseluruhan
+      function renderOverallStatsChart() {
+        const canvas = document.getElementById('overallStatsChart');
+        if (!canvas) {
+          console.warn('Canvas #overallStatsChart tidak ditemukan');
+          return;
+        }
+        const ctx = canvas.getContext('2d');
+        if (!ctx) {
+          console.warn('Context 2D untuk #overallStatsChart tidak bisa diambil');
+          return;
+        }
+        const table = document.getElementById('compare-stats-table');
+        if (!table) return;
+        const rows = Array.from(table.querySelectorAll('tbody tr'));
+        const labels = [];
+        const ttnData = [];
+        const csvData = [];
+        rows.forEach(row => {
+          const tds = row.querySelectorAll('td');
+          if (tds.length >= 3) {
+            labels.push(tds[0].textContent.trim());
+            const ttnVal = parseFloat((tds[1].textContent.trim().split('±')[0] || '').replace(',', '.'));
+            const csvVal = parseFloat((tds[2].textContent.trim().split('±')[0] || '').replace(',', '.'));
+            ttnData.push(isNaN(ttnVal) ? null : ttnVal);
+            csvData.push(isNaN(csvVal) ? null : csvVal);
+          }
+        });
+        if (window.overallStatsChartObj) window.overallStatsChartObj.destroy();
+        const chartData = labels.length > 0 ? {
+          labels: labels,
+          datasets: [
+            { label: 'TTN', data: ttnData, backgroundColor: '#2d8cf0' },
+            { label: 'Chirpstack', data: csvData, backgroundColor: '#f5c542' }
+          ]
+        } : {
+          labels: ['Tidak ada data'],
+          datasets: [
+            { label: 'TTN', data: [0], backgroundColor: '#2d8cf0' },
+            { label: 'Chirpstack', data: [0], backgroundColor: '#f5c542' }
+          ]
+        };
+        window.overallStatsChartObj = new Chart(ctx, {
+          type: 'bar',
+          data: chartData,
+          options: {
+            responsive: true,
+            plugins: {
+              legend: { position: 'top' },
+              title: { display: true, text: 'Statistik Deskriptif Keseluruhan' }
+            },
+            scales: { y: { beginAtZero: false } }
+          }
+        });
+      }
+
+      // Grafik Distribusi Spreading Factor Keseluruhan
+      function renderOverallSFChart() {
+        const canvas = document.getElementById('overallSFChart');
+        if (!canvas) {
+          console.warn('Canvas #overallSFChart tidak ditemukan');
+          return;
+        }
+        const ctx = canvas.getContext('2d');
+        if (!ctx) {
+          console.warn('Context 2D untuk #overallSFChart tidak bisa diambil');
+          return;
+        }
+        const table = document.getElementById('compare-sf-table');
+        if (!table) return;
+        const rows = Array.from(table.querySelectorAll('tbody tr'));
+        const platforms = [];
+        const sf7 = [], sf8 = [], sf10 = [];
+        rows.forEach(row => {
+          const tds = row.querySelectorAll('td');
+          if (tds.length >= 4) {
+            platforms.push(tds[0].textContent.trim());
+            sf7.push(Number((tds[1].textContent.trim().split('(')[0] || '0').replace(',', '.')));
+            sf8.push(Number((tds[2].textContent.trim().split('(')[0] || '0').replace(',', '.')));
+            sf10.push(Number((tds[3].textContent.trim().split('(')[0] || '0').replace(',', '.')));
+          }
+        });
+        if (window.overallSFChartObj) window.overallSFChartObj.destroy();
+        const chartData = platforms.length > 0 ? {
+          labels: platforms,
+          datasets: [
+            { label: 'SF7 (%)', data: sf7, backgroundColor: '#2d8cf0' },
+            { label: 'SF8 (%)', data: sf8, backgroundColor: '#8cd0fa' },
+            { label: 'SF10 (%)', data: sf10, backgroundColor: '#b0e0ff' }
+          ]
+        } : {
+          labels: ['Tidak ada data'],
+          datasets: [
+            { label: 'SF7 (%)', data: [0], backgroundColor: '#2d8cf0' },
+            { label: 'SF8 (%)', data: [0], backgroundColor: '#8cd0fa' },
+            { label: 'SF10 (%)', data: [0], backgroundColor: '#b0e0ff' }
+          ]
+        };
+        window.overallSFChartObj = new Chart(ctx, {
+          type: 'bar',
+          data: chartData,
+          options: {
+            responsive: true,
+            plugins: {
+              legend: { position: 'top' },
+              title: { display: true, text: 'Distribusi Spreading Factor Keseluruhan (%)' }
+            },
+            scales: { y: { beginAtZero: true, max: 100, title: { display: true, text: 'Persentase (%)' } } }
+          }
+        });
+      }
+
+      if (typeof window.updateOverallCharts !== 'function') {
+        window.updateOverallCharts = function() {
+          renderOverallStatsChart();
+          renderOverallSFChart();
+        };
+      }
+
+      // --- DEBUG: Render ulang grafik setiap kali tabel berubah (MutationObserver) ---
+      function observeTableAndRender(tableId, renderFn) {
+        const table = document.getElementById(tableId);
+        if (!table) return;
+        const observer = new MutationObserver(() => {
+          renderFn();
+        });
+        observer.observe(table.tBodies[0], { childList: true, subtree: true });
+      }
+      document.addEventListener('DOMContentLoaded', function() {
+        window.updateOverallCharts();
+        observeTableAndRender('compare-stats-table', renderOverallStatsChart);
+        observeTableAndRender('compare-sf-table', renderOverallSFChart);
+      });
     </script>
 </body>
 </html>

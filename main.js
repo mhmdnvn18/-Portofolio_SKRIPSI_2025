@@ -796,7 +796,9 @@ function updateCompareStatsTable(ttnData = rawTTNData, csvData = rawCSVData) {
 // Fungsi untuk update tabel statistik per interval (dan trigger update grafik)
 function updateCompareIntervalTable() {
   const tbody = document.getElementById('compare-interval-tbody');
-  if (!tbody) return;
+  // Tambahan: tbody untuk distribusi SF per interval
+  const sfIntervalTbody = document.getElementById('compare-sf-interval-tbody');
+  if (!tbody || !sfIntervalTbody) return;
 
   // Daftar interval dan mapping file
   const intervals = [
@@ -809,6 +811,7 @@ function updateCompareIntervalTable() {
   ];
 
   tbody.innerHTML = '';
+  sfIntervalTbody.innerHTML = '';
   let promises = intervals.map(async (item) => {
     // TTN
     let ttnData = [];
@@ -850,8 +853,8 @@ function updateCompareIntervalTable() {
     const ttnStats = calcStatsTTN(ttnData);
     const csvStats = calcStatsCSV(csvData);
 
-    // Format
-    return `
+    // Format tabel statistik interval
+    const intervalRow = `
       <tr>
         <td>${item.label}</td>
         <td>${ttnStats.pdr}</td>
@@ -864,14 +867,42 @@ function updateCompareIntervalTable() {
         <td>${csvStats.total}</td>
       </tr>
     `;
+
+    // Format tabel distribusi SF per interval
+    function sfPercent(count, total) {
+      if (!total || count === 0) return '0 (0%)';
+      const pct = ((count / total) * 100).toFixed(1);
+      return `${count} (${pct}%)`;
+    }
+    const sfRows = [
+      `<tr>
+        <td>${item.label}</td>
+        <td>TTN</td>
+        <td>${sfPercent(ttnStats.sf['7'], ttnStats.total)}</td>
+        <td>${sfPercent(ttnStats.sf['8'], ttnStats.total)}</td>
+        <td>${sfPercent(ttnStats.sf['10'], ttnStats.total)}</td>
+      </tr>`,
+      `<tr>
+        <td>${item.label}</td>
+        <td>ChirpStack</td>
+        <td>${sfPercent(csvStats.sf['7'], csvStats.total)}</td>
+        <td>${sfPercent(csvStats.sf['8'], csvStats.total)}</td>
+        <td>${sfPercent(csvStats.sf['10'], csvStats.total)}</td>
+      </tr>`
+    ];
+
+    return { intervalRow, sfRows };
   });
 
   // Setelah semua selesai, render ke tbody
   Promise.all(promises).then(rows => {
-    tbody.innerHTML = rows.join('');
+    tbody.innerHTML = rows.map(r => r.intervalRow).join('');
+    sfIntervalTbody.innerHTML = rows.map(r => r.sfRows.join('')).join('');
     // Tambahkan update diagram PDR
     if (window.updatePDRChartFromTable) {
-      window.updatePDRChartFromTable(rows);
+      window.updatePDRChartFromTable(
+        rows.map(r => r.intervalRow)
+      );
     }
   });
 }
