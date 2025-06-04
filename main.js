@@ -577,6 +577,7 @@ async function loadAllCSVFiles() {
 }
 
 // Fungsi statistik deskriptif untuk data TTN (mean, stddev, SF, dst)
+// RUMUS mencari nilai rata-rata (mean) dan deviasi standar (standar deviasi) SNR
 function calcStatsTTN(data, intervalDetik = null) {
   let filtered = data;
   if (intervalDetik) {
@@ -627,6 +628,7 @@ function calcStatsTTN(data, intervalDetik = null) {
 }
 
 // Fungsi statistik deskriptif untuk data CSV (mean, stddev, SF, dst)
+// RUMUS mencari nilai rata-rata (mean) dan deviasi standar (standar deviasi) RSSI
 function calcStatsCSV(data, intervalDetik = null) {
   let filtered = data;
   if (intervalDetik) {
