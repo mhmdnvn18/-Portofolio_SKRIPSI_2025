@@ -804,12 +804,12 @@ function updateCompareIntervalTable() {
 
   // Daftar interval dan mapping file
   const intervals = [
-    { label: '60', ttn: 'TTN-60.json', csv: 'Chirpstack-60.csv' },
-    { label: '120', ttn: 'TTN-120.json', csv: 'Chirpstack-120.csv' },
-    { label: '240', ttn: 'TTN-240.json', csv: 'Chirpstack-240.csv' },
-    { label: '300', ttn: 'TTN-300.json', csv: 'Chirpstack-300.csv' },
-    { label: '420', ttn: 'TTN-420(cuma 6 jam).json', csv: 'Chirpstack-420.csv' },
-    { label: '600', ttn: 'TTN-600(cuma 3 jam).json', csv: 'Chirpstack-600.csv' }
+    { label: '60 Detik', ttn: 'TTN-60.json', csv: 'Chirpstack-60.csv' },
+    { label: '120 Detik', ttn: 'TTN-120.json', csv: 'Chirpstack-120.csv' },
+    { label: '240 Detik', ttn: 'TTN-240.json', csv: 'Chirpstack-240.csv' },
+    { label: '300 Detik', ttn: 'TTN-300.json', csv: 'Chirpstack-300.csv' },
+    { label: '420 Detik', ttn: 'TTN-420(cuma 6 jam).json', csv: 'Chirpstack-420.csv' },
+    { label: '600 Detik', ttn: 'TTN-600(cuma 3 jam).json', csv: 'Chirpstack-600.csv' }
   ];
 
   tbody.innerHTML = '';
