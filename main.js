@@ -4,8 +4,8 @@ const availableFiles = [
   "TTN-120.json",
   "TTN-240.json",
   "TTN-300.json",
-  "TTN-420(cuma 6 jam).json",
-  "TTN-600(cuma 3 jam).json"
+  "TTN-420.json",
+  "TTN-600.json"
 ];
 
 // Daftar file CSV yang tersedia
