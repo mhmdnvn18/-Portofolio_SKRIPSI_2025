@@ -316,6 +316,8 @@
   </style>
   <!-- Tambahkan Chart.js CDN -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Tambahkan Chart.js datalabels CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
 </head>
 <body>
     <!-- Header: Kontainer utama aplikasi -->
@@ -718,12 +720,22 @@
             responsive: true,
             plugins: {
               legend: { position: 'top' },
-              title: { display: true, text: 'Perbandingan PDR (%) TTN vs Chirpstack per Interval' }
+              title: { display: true, text: 'Perbandingan PDR (%) TTN vs Chirpstack per Interval' },
+              datalabels: {
+                anchor: 'end',
+                align: 'end',
+                color: '#222',
+                font: { weight: 'bold' },
+                formatter: function(value) {
+                  return value !== null && value !== undefined ? value : '';
+                }
+              }
             },
             scales: {
               y: { beginAtZero: true, max: 100, title: { display: true, text: 'PDR (%)' } }
             }
-          }
+          },
+          plugins: [ChartDataLabels]
         });
       }
       function renderRSSIChart(intervals, ttnRssi, csvRssi) {
@@ -750,12 +762,22 @@
             responsive: true,
             plugins: {
               legend: { position: 'top' },
-              title: { display: true, text: 'Perbandingan RSSI (dBm) TTN vs Chirpstack per Interval' }
+              title: { display: true, text: 'Perbandingan RSSI (dBm) TTN vs Chirpstack per Interval' },
+              datalabels: {
+                anchor: 'end',
+                align: 'end',
+                color: '#222',
+                font: { weight: 'bold' },
+                formatter: function(value) {
+                  return value !== null && value !== undefined ? value : '';
+                }
+              }
             },
             scales: {
               y: { beginAtZero: false, title: { display: true, text: 'RSSI (dBm)' } }
             }
-          }
+          },
+          plugins: [ChartDataLabels]
         });
       }
       function renderSNRChart(intervals, ttnSnr, csvSnr) {
@@ -782,12 +804,22 @@
             responsive: true,
             plugins: {
               legend: { position: 'top' },
-              title: { display: true, text: 'Perbandingan SNR (dB) TTN vs Chirpstack per Interval' }
+              title: { display: true, text: 'Perbandingan SNR (dB) TTN vs Chirpstack per Interval' },
+              datalabels: {
+                anchor: 'end',
+                align: 'end',
+                color: '#222',
+                font: { weight: 'bold' },
+                formatter: function(value) {
+                  return value !== null && value !== undefined ? value : '';
+                }
+              }
             },
             scales: {
               y: { beginAtZero: false, title: { display: true, text: 'SNR (dB)' } }
             }
-          }
+          },
+          plugins: [ChartDataLabels]
         });
       }
       // Grafik Distribusi SF per interval
@@ -835,12 +867,22 @@
             responsive: true,
             plugins: {
               legend: { position: 'top' },
-              title: { display: true, text: 'Distribusi Frame per Spreading Factor (SF) per Interval' }
+              title: { display: true, text: 'Distribusi Frame per Spreading Factor (SF) per Interval' },
+              datalabels: {
+                anchor: 'end',
+                align: 'end',
+                color: '#222',
+                font: { weight: 'bold' },
+                formatter: function(value) {
+                  return value !== null && value !== undefined ? value : '';
+                }
+              }
             },
             scales: {
               y: { beginAtZero: true, title: { display: true, text: 'Jumlah Frame' } }
             }
-          }
+          },
+          plugins: [ChartDataLabels]
         });
       }
       // Fungsi export grafik Chart.js ke PNG
@@ -1012,7 +1054,16 @@
             responsive: true,
             plugins: {
               legend: { position: 'top' },
-              title: { display: true, text: 'Distribusi Spreading Factor Keseluruhan (%)' }
+              title: { display: true, text: 'Distribusi Spreading Factor Keseluruhan (%)' },
+              datalabels: {
+                anchor: 'end',
+                align: 'end',
+                color: '#222',
+                font: { weight: 'bold' },
+                formatter: function(value) {
+                  return value !== null && value !== undefined ? value : '';
+                }
+              }
             },
             scales: { 
               y: { 
@@ -1022,7 +1073,8 @@
                 title: { display: true, text: 'Persentase (%)' } 
               } 
             }
-          }
+          },
+          plugins: [ChartDataLabels]
         });
       }
 
@@ -1058,10 +1110,20 @@
             responsive: true,
             plugins: {
               legend: { display: false },
-              title: { display: true, text: 'PDR (%) Keseluruhan' }
+              title: { display: true, text: 'PDR (%) Keseluruhan' },
+              datalabels: {
+                anchor: 'end',
+                align: 'end',
+                color: '#222',
+                font: { weight: 'bold' },
+                formatter: function(value) {
+                  return value !== null && value !== undefined ? value : '';
+                }
+              }
             },
             scales: { y: { beginAtZero: true, max: 100, title: { display: true, text: 'PDR (%)' } } }
-          }
+          },
+          plugins: [ChartDataLabels]
         });
       }
       function renderOverallRSSIChart() {
@@ -1095,17 +1157,27 @@
             responsive: true,
             plugins: {
               legend: { display: false },
-              title: { display: true, text: 'RSSI Rata-rata Keseluruhan (dBm)' }
+              title: { display: true, text: 'RSSI Rata-rata Keseluruhan (dBm)' },
+              datalabels: {
+                anchor: 'end',
+                align: 'end',
+                color: '#222',
+                font: { weight: 'bold' },
+                formatter: function(value) {
+                  return value !== null && value !== undefined ? value : '';
+                }
+              }
             },
             scales: { 
               y: { 
                 beginAtZero: false, 
-                min: -60, 
-                max: 0, 
+                min: -120, 
+                max: -20, 
                 title: { display: true, text: 'RSSI (dBm)' } 
               } 
             }
-          }
+          },
+          plugins: [ChartDataLabels]
         });
       }
       function renderOverallSNRChart() {
@@ -1139,17 +1211,98 @@
             responsive: true,
             plugins: {
               legend: { display: false },
-              title: { display: true, text: 'SNR Rata-rata Keseluruhan (dB)' }
+              title: { display: true, text: 'SNR Rata-rata Keseluruhan (dB)' },
+              datalabels: {
+                anchor: 'end',
+                align: 'end',
+                color: '#222',
+                font: { weight: 'bold' },
+                formatter: function(value) {
+                  return value !== null && value !== undefined ? value : '';
+                }
+              }
             },
             scales: { 
               y: { 
                 beginAtZero: false, 
-                min: 0, 
-                max: 10, 
+                min: -20, 
+                max: 20, 
                 title: { display: true, text: 'SNR (dB)' } 
               } 
             }
+          },
+          plugins: [ChartDataLabels]
+        });
+      }
+      function renderOverallSFChart() {
+        const canvas = document.getElementById('overallSFChart');
+        if (!canvas) {
+          console.warn('Canvas #overallSFChart tidak ditemukan');
+          return;
+        }
+        const ctx = canvas.getContext('2d');
+        if (!ctx) {
+          console.warn('Context 2D untuk #overallSFChart tidak bisa diambil');
+          return;
+        }
+        const table = document.getElementById('compare-sf-table');
+        if (!table) return;
+        const rows = Array.from(table.querySelectorAll('tbody tr'));
+        const platforms = [];
+        const sf7 = [], sf8 = [], sf10 = [];
+        rows.forEach(row => {
+          const tds = row.querySelectorAll('td');
+          if (tds.length >= 4) {
+            platforms.push(tds[0].textContent.trim());
+            sf7.push(Number((tds[1].textContent.trim().split('(')[0] || '0').replace(',', '.')));
+            sf8.push(Number((tds[2].textContent.trim().split('(')[0] || '0').replace(',', '.')));
+            sf10.push(Number((tds[3].textContent.trim().split('(')[0] || '0').replace(',', '.')));
           }
+        });
+        if (window.overallSFChartObj) window.overallSFChartObj.destroy();
+        const chartData = platforms.length > 0 ? {
+          labels: platforms,
+          datasets: [
+            { label: 'SF7 (%)', data: sf7, backgroundColor: '#2d8cf0' },
+            { label: 'SF8 (%)', data: sf8, backgroundColor: '#8cd0fa' },
+            { label: 'SF10 (%)', data: sf10, backgroundColor: '#b0e0ff' }
+          ]
+        } : {
+          labels: ['Tidak ada data'],
+          datasets: [
+            { label: 'SF7 (%)', data: [0], backgroundColor: '#2d8cf0' },
+            { label: 'SF8 (%)', data: [0], backgroundColor: '#8cd0fa' },
+            { label: 'SF10 (%)', data: [0], backgroundColor: '#b0e0ff' }
+          ]
+        };
+        window.overallSFChartObj = new Chart(ctx, {
+          type: 'bar',
+          data: chartData,
+          options: {
+            responsive: true,
+            plugins: {
+              legend: { position: 'top' },
+              title: { display: true, text: 'Distribusi Spreading Factor Keseluruhan (%)' },
+              datalabels: {
+                anchor: 'end',
+                align: 'end',
+                color: '#222',
+                font: { weight: 'bold' },
+                formatter: function(value) {
+                  return value !== null && value !== undefined ? value : '';
+                }
+              }
+            },
+            scales: { 
+              y: { 
+                beginAtZero: true, 
+                min: 0, 
+                max: 100, 
+                title: { display: true, text: 'Persentase (%)' } 
+              } 
+            }
+          },
+          plugins: [ChartDataLabels]
         });
       }
       // Ubah updateOverallCharts agar memanggil ketiga fungsi di atas
