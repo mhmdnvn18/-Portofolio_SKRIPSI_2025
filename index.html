@@ -313,6 +313,33 @@
         font-size: 1em;
       }
     }
+
+    .compare-table-scroll {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin-bottom: 1em;
+    }
+    @media (max-width: 900px) {
+      .compare-table-scroll {
+        margin-bottom: 1.5em;
+      }
+      table {
+        min-width: 600px;
+      }
+    }
+    @media (max-width: 600px) {
+      .compare-table-scroll {
+        margin-bottom: 1.5em;
+      }
+      table {
+        min-width: 400px;
+        font-size: 0.95em;
+      }
+      th, td {
+        padding: 6px 6px;
+      }
+    }
   </style>
   <!-- Tambahkan Chart.js CDN -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -449,7 +476,7 @@
                   </tbody>
                 </table>
                 <!-- Tambahkan tabel distribusi SF per interval -->
-                <div style="margin-top:1.5em;">
+                <div style="margin-top:1.5em;" class="compare-table-scroll">
                   <b>Distribusi Spreading Factor per Interval</b>
                   <table id="compare-sf-interval-table" style="margin-top:0.8em;">
                     <caption style="position:absolute;left:-9999px;">Tabel distribusi SF per interval TTN dan Chirpstack</caption>
