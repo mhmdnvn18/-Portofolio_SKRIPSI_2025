@@ -746,11 +746,12 @@ function updateCompareStatsTable(ttnData = rawTTNData, csvData = rawCSVData) {
   const csvStats = calcStatsCSV(csvData);
 
   // Kolom: Metric | TTN | ChirpStack
+  // Tambahkan nilai sebenarnya pada baris PDR (%)
   tbody.innerHTML = `
     <tr>
       <td>PDR (%)</td>
-      <td>${ttnStats.pdr} %</td>
-      <td>${csvStats.pdr} %</td>
+      <td>${ttnStats.pdr} % <span style="color:#888;font-size:0.95em;">(${ttnStats.total - Math.round(ttnStats.total * (1 - ttnStats.pdr / 100))}/${ttnStats.total})</span></td>
+      <td>${csvStats.pdr} % <span style="color:#888;font-size:0.95em;">(${csvStats.total - Math.round(csvStats.total * (1 - csvStats.pdr / 100))}/${csvStats.total})</span></td>
     </tr>
     <tr>
       <td>RSSI Rata-rata ± std dev (dBm)</td>
@@ -922,8 +923,8 @@ function updateCompareStatsTable(ttnData = rawTTNData, csvData = rawCSVData) {
   tbody.innerHTML = `
     <tr>
       <td>PDR (%)</td>
-      <td>${ttnStats.pdr} %</td>
-      <td>${csvStats.pdr} %</td>
+      <td>${ttnStats.pdr} % <span style="color:#888;font-size:0.95em;">(${ttnStats.total - Math.round(ttnStats.total * (1 - ttnStats.pdr / 100))}/${ttnStats.total})</span></td>
+      <td>${csvStats.pdr} % <span style="color:#888;font-size:0.95em;">(${csvStats.total - Math.round(csvStats.total * (1 - csvStats.pdr / 100))}/${csvStats.total})</span></td>
     </tr>
     <tr>
       <td>RSSI Rata-rata ± std dev (dBm)</td>
