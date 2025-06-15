@@ -1053,6 +1053,7 @@
           const tds = row.querySelectorAll('td');
           if (tds.length >= 4) {
             platforms.push(tds[0].textContent.trim());
+            // Ambil angka sebelum tanda kurung (jumlah SF, bukan persen)
             sf7.push(Number((tds[1].textContent.trim().split('(')[0] || '0').replace(',', '.')));
             sf8.push(Number((tds[2].textContent.trim().split('(')[0] || '0').replace(',', '.')));
             sf10.push(Number((tds[3].textContent.trim().split('(')[0] || '0').replace(',', '.')));
@@ -1062,16 +1063,16 @@
         const chartData = platforms.length > 0 ? {
           labels: platforms,
           datasets: [
-            { label: 'SF7 (%)', data: sf7, backgroundColor: '#2d8cf0' },
-            { label: 'SF8 (%)', data: sf8, backgroundColor: '#8cd0fa' },
-            { label: 'SF10 (%)', data: sf10, backgroundColor: '#b0e0ff' }
+            { label: 'SF7', data: sf7, backgroundColor: '#2d8cf0' },
+            { label: 'SF8', data: sf8, backgroundColor: '#ffe08a' }, // kuning
+            { label: 'SF10', data: sf10, backgroundColor: '#b0e0ff' }
           ]
         } : {
           labels: ['Tidak ada data'],
           datasets: [
-            { label: 'SF7 (%)', data: [0], backgroundColor: '#2d8cf0' },
-            { label: 'SF8 (%)', data: [0], backgroundColor: '#8cd0fa' },
-            { label: 'SF10 (%)', data: [0], backgroundColor: '#b0e0ff' }
+            { label: 'SF7', data: [0], backgroundColor: '#2d8cf0' },
+            { label: 'SF8', data: [0], backgroundColor: '#ffe08a' }, // kuning
+            { label: 'SF10', data: [0], backgroundColor: '#b0e0ff' }
           ]
         };
         window.overallSFChartObj = new Chart(ctx, {
@@ -1081,7 +1082,7 @@
             responsive: true,
             plugins: {
               legend: { position: 'top' },
-              title: { display: true, text: 'Distribusi Spreading Factor Keseluruhan (%)' },
+              title: { display: true, text: 'Distribusi Spreading Factor Keseluruhan (Jumlah Frame)' },
               datalabels: {
                 anchor: 'end',
                 align: 'end',
@@ -1095,9 +1096,8 @@
             scales: { 
               y: { 
                 beginAtZero: true, 
-                min: 0, 
-                max: 100, 
-                title: { display: true, text: 'Persentase (%)' } 
+                // min: 0, // min/max otomatis sesuai data
+                title: { display: true, text: 'Jumlah Frame' } 
               } 
             }
           },
@@ -1280,6 +1280,7 @@
           const tds = row.querySelectorAll('td');
           if (tds.length >= 4) {
             platforms.push(tds[0].textContent.trim());
+            // Ambil angka sebelum tanda kurung (jumlah SF, bukan persen)
             sf7.push(Number((tds[1].textContent.trim().split('(')[0] || '0').replace(',', '.')));
             sf8.push(Number((tds[2].textContent.trim().split('(')[0] || '0').replace(',', '.')));
             sf10.push(Number((tds[3].textContent.trim().split('(')[0] || '0').replace(',', '.')));
@@ -1289,16 +1290,16 @@
         const chartData = platforms.length > 0 ? {
           labels: platforms,
           datasets: [
-            { label: 'SF7 (%)', data: sf7, backgroundColor: '#2d8cf0' },
-            { label: 'SF8 (%)', data: sf8, backgroundColor: '#8cd0fa' },
-            { label: 'SF10 (%)', data: sf10, backgroundColor: '#b0e0ff' }
+            { label: 'SF7', data: sf7, backgroundColor: '#2d8cf0' },
+            { label: 'SF8', data: sf8, backgroundColor: '#ffe08a' }, // kuning
+            { label: 'SF10', data: sf10, backgroundColor: '#b0e0ff' }
           ]
         } : {
           labels: ['Tidak ada data'],
           datasets: [
-            { label: 'SF7 (%)', data: [0], backgroundColor: '#2d8cf0' },
-            { label: 'SF8 (%)', data: [0], backgroundColor: '#8cd0fa' },
-            { label: 'SF10 (%)', data: [0], backgroundColor: '#b0e0ff' }
+            { label: 'SF7', data: [0], backgroundColor: '#2d8cf0' },
+            { label: 'SF8', data: [0], backgroundColor: '#ffe08a' }, // kuning
+            { label: 'SF10', data: [0], backgroundColor: '#b0e0ff' }
           ]
         };
         window.overallSFChartObj = new Chart(ctx, {
@@ -1308,7 +1309,7 @@
             responsive: true,
             plugins: {
               legend: { position: 'top' },
-              title: { display: true, text: 'Distribusi Spreading Factor Keseluruhan (%)' },
+              title: { display: true, text: 'Distribusi Spreading Factor Keseluruhan (Jumlah Frame)' },
               datalabels: {
                 anchor: 'end',
                 align: 'end',
@@ -1322,9 +1323,8 @@
             scales: { 
               y: { 
                 beginAtZero: true, 
-                min: 0, 
-                max: 100, 
-                title: { display: true, text: 'Persentase (%)' } 
+                // min: 0, // min/max otomatis sesuai data
+                title: { display: true, text: 'Jumlah Frame' } 
               } 
             }
           },
