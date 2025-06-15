@@ -865,14 +865,13 @@ function updateCompareIntervalTable() {
       <tr>
         <td>${item.label}</td>
         <td>${ttnStats.pdr}</td>
-        <td>${ttnSuccess}/${ttnStats.total}</td>        
         <td>${csvStats.pdr}</td>
-        <td>${csvSuccess}/${csvStats.total}</td>        
         <td>${ttnStats.rssi} ± ${ttnStats.rssiStd}</td>
         <td>${csvStats.rssi} ± ${csvStats.rssiStd}</td>
         <td>${ttnStats.snr} ± ${ttnStats.snrStd}</td>
         <td>${csvStats.snr} ± ${csvStats.snrStd}</td>
-
+        <td>${ttnSuccess}/${ttnStats.total}</td>
+        <td>${csvSuccess}/${csvStats.total}</td>
       </tr>
     `;
 
