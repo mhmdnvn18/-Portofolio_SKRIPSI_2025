@@ -856,18 +856,36 @@ function updateCompareIntervalTable() {
     const ttnStats = calcStatsTTN(ttnData);
     const csvStats = calcStatsCSV(csvData);
 
+    // Hitung jumlah data valid TTN (data dengan decoded_payload)
+    let ttnValid = 0;
+    ttnData.forEach(obj => {
+      const r = obj.result || obj;
+      const msg = r.uplink_message || {};
+      if (msg.decoded_payload) ttnValid++;
+    });
+
+    // Hitung jumlah data valid ChirpStack (baris dengan temperature & humidity valid)
+    let csvValid = 0;
+    csvData.forEach(obj => {
+      if (
+        obj.temperature !== '' && !isNaN(parseFloat(obj.temperature)) &&
+        obj.humidity !== '' && !isNaN(parseFloat(obj.humidity))
+      ) csvValid++;
+    });
+
     // Format tabel statistik interval
     const intervalRow = `
       <tr>
         <td>${item.label}</td>
         <td>${ttnStats.pdr}</td>
+        <td>${ttnValid}/${ttnStats.total}</td>
         <td>${csvStats.pdr}</td>
+        <td>${csvValid}/${csvStats.total}</td>
         <td>${ttnStats.rssi} ± ${ttnStats.rssiStd}</td>
         <td>${csvStats.rssi} ± ${csvStats.rssiStd}</td>
         <td>${ttnStats.snr} ± ${ttnStats.snrStd}</td>
         <td>${csvStats.snr} ± ${csvStats.snrStd}</td>
-        <td>${ttnStats.total}</td>
-        <td>${csvStats.total}</td>
+
       </tr>
     `;
 
