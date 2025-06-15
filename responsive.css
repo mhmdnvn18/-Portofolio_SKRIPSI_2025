@@ -1,0 +1,97 @@
+/* Responsiveness styles for all devices */
+
+/* Medium screens */
+@media (max-width: 900px) {
+  .compare-table-scroll {
+    margin-bottom: 1.5em;
+  }
+  
+  table {
+    min-width: 600px;
+  }
+  
+  .container {
+    flex: 1 1 100%;
+    max-width: 800px;
+  }
+  
+  #compare-container {
+    min-width: 400px !important;
+  }
+}
+
+/* Small screens */
+@media (max-width: 600px) {
+  .compare-table-scroll {
+    margin-bottom: 1.5em;
+  }
+  
+  table {
+    min-width: 400px;
+    font-size: 0.95em;
+  }
+  
+  th, td {
+    padding: 6px 6px;
+  }
+  
+  .controls-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  select {
+    max-width: 100%;
+  }
+  
+  button {
+    width: 100%;
+    margin-top: 10px;
+  }
+  
+  .summary-cards {
+    justify-content: center;
+  }
+  
+  .card {
+    flex: 1 1 140px;
+    min-width: 140px;
+  }
+  
+  h1 {
+    font-size: 1.5em;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 450px) {
+  .modal-warning-content {
+    padding: 1.2em 0.7em 1em 0.7em;
+    font-size: 1em;
+  }
+  
+  .main-flex {
+    padding: 0.5em;
+  }
+  
+  .container {
+    padding: 1em;
+    margin: 0.3em;
+  }
+  
+  .controls {
+    padding: 0.8em;
+  }
+  
+  .card-value {
+    font-size: 1.3em;
+  }
+  
+  #compare-container {
+    min-width: 300px !important;
+  }
+  
+  .compare-table-scroll {
+    overflow-y: hidden;
+  }
+}
