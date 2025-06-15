@@ -389,10 +389,18 @@
                   </tbody>
                 </table>
               </div>
-              <!-- Tambahkan tombol export dan canvas untuk Statistik Deskriptif Keseluruhan -->
+              <!-- Pisahkan tombol export dan canvas untuk masing-masing metrik -->
               <div style="margin-top:0.7em;">
-                <button type="button" onclick="exportChart('overallStatsChart', 'Statistik_Deskriptif_Keseluruhan.png')" style="margin-bottom:0.5em;">Export Grafik Statistik Deskriptif Keseluruhan</button>
-                <canvas id="overallStatsChart" height="120" aria-label="Grafik Statistik Deskriptif Keseluruhan" style="background:#fff;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,0.04);"></canvas>
+                <button type="button" onclick="exportChart('overallPDRChart', 'Statistik_Deskriptif_PDR.png')" style="margin-bottom:0.5em;">Export Grafik PDR Keseluruhan</button>
+                <canvas id="overallPDRChart" height="100" aria-label="Grafik PDR Keseluruhan" style="background:#fff;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,0.04);"></canvas>
+              </div>
+              <div style="margin-top:0.7em;">
+                <button type="button" onclick="exportChart('overallRSSIChart', 'Statistik_Deskriptif_RSSI.png')" style="margin-bottom:0.5em;">Export Grafik RSSI Rata-rata Keseluruhan</button>
+                <canvas id="overallRSSIChart" height="100" aria-label="Grafik RSSI Rata-rata Keseluruhan" style="background:#fff;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,0.04);"></canvas>
+              </div>
+              <div style="margin-top:0.7em;">
+                <button type="button" onclick="exportChart('overallSNRChart', 'Statistik_Deskriptif_SNR.png')" style="margin-bottom:0.5em;">Export Grafik SNR Rata-rata Keseluruhan</button>
+                <canvas id="overallSNRChart" height="100" aria-label="Grafik SNR Rata-rata Keseluruhan" style="background:#fff;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,0.04);"></canvas>
               </div>
               <div style="margin-top:1.2em;" class="compare-table-scroll">
                 <b>Distribusi Spreading Factor Keseluruhan</b>
@@ -1006,18 +1014,161 @@
               legend: { position: 'top' },
               title: { display: true, text: 'Distribusi Spreading Factor Keseluruhan (%)' }
             },
-            scales: { y: { beginAtZero: true, max: 100, title: { display: true, text: 'Persentase (%)' } } }
+            scales: { 
+              y: { 
+                beginAtZero: true, 
+                min: 0, 
+                max: 100, 
+                title: { display: true, text: 'Persentase (%)' } 
+              } 
+            }
           }
         });
       }
 
+      // --- Tambahkan fungsi render untuk masing-masing grafik Statistik Deskriptif Keseluruhan ---
+      function renderOverallPDRChart() {
+        const canvas = document.getElementById('overallPDRChart');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        const table = document.getElementById('compare-stats-table');
+        if (!table) return;
+        const rows = Array.from(table.querySelectorAll('tbody tr'));
+        // Ambil baris PDR (baris pertama)
+        if (rows.length < 1) return;
+        const tds = rows[0].querySelectorAll('td');
+        if (tds.length < 3) return;
+        const labels = ['TTN', 'Chirpstack'];
+        const ttnVal = parseFloat((tds[1].textContent.trim().split(' ')[0] || '').replace(',', '.'));
+        const csvVal = parseFloat((tds[2].textContent.trim().split(' ')[0] || '').replace(',', '.'));
+        const data = [
+          isNaN(ttnVal) ? 0 : ttnVal,
+          isNaN(csvVal) ? 0 : csvVal
+        ];
+        if (window.overallPDRChartObj) window.overallPDRChartObj.destroy();
+        window.overallPDRChartObj = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: labels,
+            datasets: [
+              { label: 'PDR (%)', data: data, backgroundColor: ['#2d8cf0', '#f5c542'] }
+            ]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: { display: false },
+              title: { display: true, text: 'PDR (%) Keseluruhan' }
+            },
+            scales: { y: { beginAtZero: true, max: 100, title: { display: true, text: 'PDR (%)' } } }
+          }
+        });
+      }
+      function renderOverallRSSIChart() {
+        const canvas = document.getElementById('overallRSSIChart');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        const table = document.getElementById('compare-stats-table');
+        if (!table) return;
+        const rows = Array.from(table.querySelectorAll('tbody tr'));
+        // Ambil baris RSSI (baris kedua)
+        if (rows.length < 2) return;
+        const tds = rows[1].querySelectorAll('td');
+        if (tds.length < 3) return;
+        const labels = ['TTN', 'Chirpstack'];
+        const ttnVal = parseFloat((tds[1].textContent.trim().split('±')[0] || '').replace(',', '.'));
+        const csvVal = parseFloat((tds[2].textContent.trim().split('±')[0] || '').replace(',', '.'));
+        const data = [
+          isNaN(ttnVal) ? 0 : ttnVal,
+          isNaN(csvVal) ? 0 : csvVal
+        ];
+        if (window.overallRSSIChartObj) window.overallRSSIChartObj.destroy();
+        window.overallRSSIChartObj = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: labels,
+            datasets: [
+              { label: 'RSSI (dBm)', data: data, backgroundColor: ['#2d8cf0', '#f5c542'] }
+            ]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: { display: false },
+              title: { display: true, text: 'RSSI Rata-rata Keseluruhan (dBm)' }
+            },
+            scales: { 
+              y: { 
+                beginAtZero: false, 
+                min: -60, 
+                max: 0, 
+                title: { display: true, text: 'RSSI (dBm)' } 
+              } 
+            }
+          }
+        });
+      }
+      function renderOverallSNRChart() {
+        const canvas = document.getElementById('overallSNRChart');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        const table = document.getElementById('compare-stats-table');
+        if (!table) return;
+        const rows = Array.from(table.querySelectorAll('tbody tr'));
+        // Ambil baris SNR (baris ketiga)
+        if (rows.length < 3) return;
+        const tds = rows[2].querySelectorAll('td');
+        if (tds.length < 3) return;
+        const labels = ['TTN', 'Chirpstack'];
+        const ttnVal = parseFloat((tds[1].textContent.trim().split('±')[0] || '').replace(',', '.'));
+        const csvVal = parseFloat((tds[2].textContent.trim().split('±')[0] || '').replace(',', '.'));
+        const data = [
+          isNaN(ttnVal) ? 0 : ttnVal,
+          isNaN(csvVal) ? 0 : csvVal
+        ];
+        if (window.overallSNRChartObj) window.overallSNRChartObj.destroy();
+        window.overallSNRChartObj = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: labels,
+            datasets: [
+              { label: 'SNR (dB)', data: data, backgroundColor: ['#2d8cf0', '#f5c542'] }
+            ]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: { display: false },
+              title: { display: true, text: 'SNR Rata-rata Keseluruhan (dB)' }
+            },
+            scales: { 
+              y: { 
+                beginAtZero: false, 
+                min: 0, 
+                max: 10, 
+                title: { display: true, text: 'SNR (dB)' } 
+              } 
+            }
+          }
+        });
+      }
+      // Ubah updateOverallCharts agar memanggil ketiga fungsi di atas
       if (typeof window.updateOverallCharts !== 'function') {
         window.updateOverallCharts = function() {
-          renderOverallStatsChart();
+          renderOverallPDRChart();
+          renderOverallRSSIChart();
+          renderOverallSNRChart();
+          renderOverallSFChart();
+        };
+      } else {
+        // Jika sudah ada, override agar memanggil fungsi baru
+        window.updateOverallCharts = function() {
+          renderOverallPDRChart();
+          renderOverallRSSIChart();
+          renderOverallSNRChart();
           renderOverallSFChart();
         };
       }
-
       // --- DEBUG: Render ulang grafik setiap kali tabel berubah (MutationObserver) ---
       function observeTableAndRender(tableId, renderFn) {
         const table = document.getElementById(tableId);
@@ -1029,7 +1180,11 @@
       }
       document.addEventListener('DOMContentLoaded', function() {
         window.updateOverallCharts();
-        observeTableAndRender('compare-stats-table', renderOverallStatsChart);
+        observeTableAndRender('compare-stats-table', function() {
+          renderOverallPDRChart();
+          renderOverallRSSIChart();
+          renderOverallSNRChart();
+        });
         observeTableAndRender('compare-sf-table', renderOverallSFChart);
       });
     </script>
