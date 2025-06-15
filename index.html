@@ -801,7 +801,12 @@
               }
             },
             scales: {
-              y: { beginAtZero: false, title: { display: true, text: 'RSSI (dBm)' } }
+              y: { 
+                beginAtZero: false, 
+                min: -60, 
+                max: 0, 
+                title: { display: true, text: 'RSSI (dBm)' } 
+              }
             }
           },
           plugins: [ChartDataLabels]
@@ -843,7 +848,12 @@
               }
             },
             scales: {
-              y: { beginAtZero: false, title: { display: true, text: 'SNR (dB)' } }
+              y: { 
+                beginAtZero: false, 
+                min: 0, 
+                max: 12, 
+                title: { display: true, text: 'SNR (dB)' } 
+              }
             }
           },
           plugins: [ChartDataLabels]
