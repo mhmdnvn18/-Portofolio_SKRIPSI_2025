@@ -1077,7 +1077,6 @@
           plugins: [ChartDataLabels]
         });
       }
-
       // --- Tambahkan fungsi render untuk masing-masing grafik Statistik Deskriptif Keseluruhan ---
       function renderOverallPDRChart() {
         const canvas = document.getElementById('overallPDRChart');
@@ -1171,8 +1170,8 @@
             scales: { 
               y: { 
                 beginAtZero: false, 
-                min: -120, 
-                max: -20, 
+                min: -60, 
+                max: 0, 
                 title: { display: true, text: 'RSSI (dBm)' } 
               } 
             }
@@ -1225,8 +1224,8 @@
             scales: { 
               y: { 
                 beginAtZero: false, 
-                min: -20, 
-                max: 20, 
+                min: 0, 
+                max: 12, 
                 title: { display: true, text: 'SNR (dB)' } 
               } 
             }
