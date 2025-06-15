@@ -808,8 +808,8 @@ function updateCompareIntervalTable() {
     { label: '120 Detik', ttn: 'TTN-120.json', csv: 'Chirpstack-120.csv' },
     { label: '240 Detik', ttn: 'TTN-240.json', csv: 'Chirpstack-240.csv' },
     { label: '300 Detik', ttn: 'TTN-300.json', csv: 'Chirpstack-300.csv' },
-    { label: '420 Detik', ttn: 'TTN-420(cuma 6 jam).json', csv: 'Chirpstack-420.csv' },
-    { label: '600 Detik', ttn: 'TTN-600(cuma 3 jam).json', csv: 'Chirpstack-600.csv' }
+    { label: '420 Detik', ttn: 'TTN-420.json', csv: 'Chirpstack-420.csv' },
+    { label: '600 Detik', ttn: 'TTN-600.json', csv: 'Chirpstack-600.csv' }
   ];
 
   tbody.innerHTML = '';
