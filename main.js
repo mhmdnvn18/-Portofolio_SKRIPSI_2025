@@ -50,7 +50,7 @@ function setTableLoading(type) {
   const tableId = type === 'csv' ? 'csv-table' : 'data-table';
   const table = document.getElementById(tableId);
   if (table) {
-    table.innerHTML = '<tbody><tr><td colspan="16" style="text-align:center">Loading...</td></tr></tbody>';
+    table.innerHTML = '<tbody><tr><td colspan="16" style="text-align:center">Memuat...</td></tr></tbody>';
   }
 }
 
@@ -89,7 +89,7 @@ document.getElementById('loadSelected').onclick = async function() {
       }
       allData = allData.concat(parsed);
     }
-    rawTTNData = allData; // <-- update global data
+    rawTTNData = allData; // <-- perbarui data global
     renderData(allData);
     updateCompareStatsTable();
   } catch (error) {
@@ -101,12 +101,12 @@ document.getElementById('loadSelected').onclick = async function() {
 // Fungsi bantu untuk parsing data JSON (array/NDJSON)
 function parseJsonData(text) {
   try {
-    // Try parsing as JSON array first
+    // Coba parsing sebagai array JSON terlebih dahulu
     const parsed = JSON.parse(text);
     if (Array.isArray(parsed)) return parsed;
     if (parsed && typeof parsed === 'object') return [parsed];
     
-    // If not array, try NDJSON
+    // Jika bukan array, coba NDJSON
     return text.split('\n')
       .map(line => line.trim())
       .filter(line => line)
@@ -116,7 +116,7 @@ function parseJsonData(text) {
       })
       .filter(Boolean);
   } catch (e) {
-    console.error('Parsing error:', e);
+    console.error('Kesalahan parsing:', e);
     return [];
   }
 }
@@ -192,7 +192,7 @@ function renderData(data) {
       }
     }
 
-    // Extract data
+    // Ekstrak data
     const device_id = ids.device_id || '-';
     const app_id = (ids.application_ids && ids.application_ids.application_id) || '-';
     const dev_eui = ids.dev_eui || '-';
@@ -266,7 +266,7 @@ function renderData(data) {
     if (!msg.decoded_payload) errorRows++;
   });
 
-  // Update summary cards
+  // Perbarui summary cards
   const tempEl = document.getElementById('avg-temp');
   const humEl = document.getElementById('avg-hum');
   const rssiEl = document.getElementById('avg-rssi');
@@ -329,7 +329,7 @@ document.getElementById('loadCsv').onclick = async function() {
         allData = allData.concat(dataRows);
       }
     }
-    rawCSVData = allData; // <-- update global data
+    rawCSVData = allData; // <-- perbarui data global
     renderCsvTable(allData);
     updateCompareStatsTable();
   } catch (error) {
@@ -420,7 +420,7 @@ function renderCsvTable(data) {
 
   table.appendChild(tbody);
 
-  // Update summary cards
+  // Perbarui summary cards
   const tempEl = document.getElementById('csv-avg-temp');
   const humEl = document.getElementById('csv-avg-hum');
   const rssiEl = document.getElementById('csv-avg-rssi');
@@ -575,7 +575,7 @@ function updateCompareStatsTable(ttnData = rawTTNData, csvData = rawCSVData) {
   const ttnStats = window.LoRaCalculator.calcStatsTTN(ttnData);
   const csvStats = window.LoRaCalculator.calcStatsCSV(csvData);
 
-  // Kolom: Metric | TTN | ChirpStack
+  // Kolom: Metrik | TTN | ChirpStack
   // Tambahkan nilai sebenarnya pada baris PDR (%)
   tbody.innerHTML = `
     <tr>
@@ -611,7 +611,7 @@ function updateCompareStatsTable(ttnData = rawTTNData, csvData = rawCSVData) {
     </tr>
   `;
 
-  // Update summary cards (atas)
+  // Perbarui summary cards (atas)
   document.getElementById('compare-pdr').textContent = `${ttnStats.pdr} % / ${csvStats.pdr} %`;
   document.getElementById('compare-rssi').textContent = `${ttnStats.rssi} ± ${ttnStats.rssiStd} dBm / ${csvStats.rssi} ± ${csvStats.rssiStd} dBm`;
   document.getElementById('compare-snr').textContent = `${ttnStats.snr} ± ${ttnStats.snrStd} dB / ${csvStats.snr} ± ${csvStats.snrStd} dB`;
@@ -745,7 +745,7 @@ document.getElementById('compare-btn').onclick = async function() {
   document.getElementById('compare-rssi').textContent = '...';
   document.getElementById('compare-snr').textContent = '...';
   document.getElementById('compare-sf').textContent = '...';
-  // Load data sesuai pilihan
+  // Muat data sesuai pilihan
   const [ttnData, csvData] = await Promise.all([
     loadTTNForCompare(ttnFile),
     loadCSVForCompare(csvFile)
@@ -753,7 +753,7 @@ document.getElementById('compare-btn').onclick = async function() {
   updateCompareStatsTable(ttnData, csvData);
 };
 
-// Saat halaman pertama kali dibuka, load semua data & tampilkan statistik default
+// Saat halaman pertama kali dibuka, muat semua data & tampilkan statistik default
 window.addEventListener('DOMContentLoaded', async function() {
   rawTTNData = await loadAllTTNFiles();
   rawCSVData = await loadAllCSVFiles();

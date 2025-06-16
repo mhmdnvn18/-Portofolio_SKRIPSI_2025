@@ -33,7 +33,7 @@ function calcStatsTTN(data, intervalDetik = null) {
     const sf = msg.settings?.data_rate?.lora?.spreading_factor;
     if (sf && sfCount[String(sf)] !== undefined) sfCount[String(sf)]++;
   });
-  // Std dev
+  // Hitung deviasi standar
   function stddev(arr, mean) {
     if (!arr.length) return '-';
     const m = mean ?? (arr.reduce((a, b) => a + b, 0) / arr.length);
@@ -123,11 +123,11 @@ function calculateTimeDuration(dates) {
 
 // Fungsi bantu untuk parsing tanggal dari string
 function parseDate(dateStr) {
-  // Try parsing as ISO format first
+  // Coba parsing sebagai format ISO terlebih dahulu
   let date = new Date(dateStr.replace(' WIB', ''));
   if (!isNaN(date.getTime())) return date;
   
-  // Try parsing as local format (dd/mm/yyyy hh:mm:ss)
+  // Coba parsing sebagai format lokal (dd/mm/yyyy hh:mm:ss)
   const parts = dateStr.split(/[ ,:\/]+/);
   if (parts.length >= 6) {
     const [dd, mm, yyyy, hh, min, ss] = parts;
@@ -163,7 +163,7 @@ function parseCSV(text) {
     }
   }
   
-  // Add the last row if exists
+  // Tambahkan baris terakhir jika ada
   if (currentCell.trim() || currentRow.length) {
     currentRow.push(currentCell.trim());
     rows.push(currentRow);
