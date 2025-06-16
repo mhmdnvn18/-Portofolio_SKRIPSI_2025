@@ -33,7 +33,7 @@ function calcStatsTTN(data, intervalDetik = null) {
     const sf = msg.settings?.data_rate?.lora?.spreading_factor;
     if (sf && sfCount[String(sf)] !== undefined) sfCount[String(sf)]++;
   });
-  // Hitung deviasi standar
+  // Std dev
   function stddev(arr, mean) {
     if (!arr.length) return '-';
     const m = mean ?? (arr.reduce((a, b) => a + b, 0) / arr.length);
@@ -64,6 +64,7 @@ function calcStatsCSV(data, intervalDetik = null) {
   let error = 0, sumRssi = 0, sumSNR = 0, countRssi = 0, countSNR = 0;
   let rssiArr = [], snrArr = [];
   let sfCount = { '7': 0, '8': 0, '10': 0 };
+  let sfInvalid = 0;
   filtered.forEach(obj => {
     if (
       obj.temperature === '' || isNaN(parseFloat(obj.temperature)) ||
@@ -82,7 +83,11 @@ function calcStatsCSV(data, intervalDetik = null) {
       snrArr.push(snr);
     }
     const sf = obj.spreading_factor;
-    if (sf && sfCount[String(sf)] !== undefined) sfCount[String(sf)]++;
+    if (sf && sfCount[String(sf)] !== undefined) {
+      sfCount[String(sf)]++;
+    } else {
+      sfInvalid++;
+    }
   });
   function stddev(arr, mean) {
     if (!arr.length) return '-';
@@ -99,6 +104,7 @@ function calcStatsCSV(data, intervalDetik = null) {
     snr: countSNR > 0 ? meanSnr.toFixed(2) : '-',
     snrStd: countSNR > 0 ? stddev(snrArr, meanSnr).toFixed(2) : '-',
     sf: sfCount,
+    sfInvalid, // jumlah data dengan SF tidak valid
     total
   };
 }
@@ -123,11 +129,11 @@ function calculateTimeDuration(dates) {
 
 // Fungsi bantu untuk parsing tanggal dari string
 function parseDate(dateStr) {
-  // Coba parsing sebagai format ISO terlebih dahulu
+  // Try parsing as ISO format first
   let date = new Date(dateStr.replace(' WIB', ''));
   if (!isNaN(date.getTime())) return date;
   
-  // Coba parsing sebagai format lokal (dd/mm/yyyy hh:mm:ss)
+  // Try parsing as local format (dd/mm/yyyy hh:mm:ss)
   const parts = dateStr.split(/[ ,:\/]+/);
   if (parts.length >= 6) {
     const [dd, mm, yyyy, hh, min, ss] = parts;
@@ -163,7 +169,7 @@ function parseCSV(text) {
     }
   }
   
-  // Tambahkan baris terakhir jika ada
+  // Add the last row if exists
   if (currentCell.trim() || currentRow.length) {
     currentRow.push(currentCell.trim());
     rows.push(currentRow);

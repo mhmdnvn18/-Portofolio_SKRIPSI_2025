@@ -602,12 +602,14 @@ function updateCompareStatsTable(ttnData = rawTTNData, csvData = rawCSVData) {
       <td>${window.LoRaCalculator.sfPercent(ttnStats.sf['7'], ttnStats.total)}</td>
       <td>${window.LoRaCalculator.sfPercent(ttnStats.sf['8'], ttnStats.total)}</td>
       <td>${window.LoRaCalculator.sfPercent(ttnStats.sf['10'], ttnStats.total)}</td>
+      <td>${window.LoRaCalculator.sfPercent(ttnStats.sfInvalid, ttnStats.total)}</td>
     </tr>
     <tr>
       <td>ChirpStack</td>
       <td>${window.LoRaCalculator.sfPercent(csvStats.sf['7'], csvStats.total)}</td>
       <td>${window.LoRaCalculator.sfPercent(csvStats.sf['8'], csvStats.total)}</td>
       <td>${window.LoRaCalculator.sfPercent(csvStats.sf['10'], csvStats.total)}</td>
+      <td>${window.LoRaCalculator.sfPercent(csvStats.sfInvalid, csvStats.total)}</td>
     </tr>
   `;
 
@@ -710,6 +712,7 @@ function updateCompareIntervalTable() {
         <td>${window.LoRaCalculator.sfPercent(ttnStats.sf['7'], ttnStats.total)}</td>
         <td>${window.LoRaCalculator.sfPercent(ttnStats.sf['8'], ttnStats.total)}</td>
         <td>${window.LoRaCalculator.sfPercent(ttnStats.sf['10'], ttnStats.total)}</td>
+        <td>${window.LoRaCalculator.sfPercent(ttnStats.sfInvalid, ttnStats.total)}</td>
       </tr>`,
       `<tr>
         <td>${item.label}</td>
@@ -717,6 +720,7 @@ function updateCompareIntervalTable() {
         <td>${window.LoRaCalculator.sfPercent(csvStats.sf['7'], csvStats.total)}</td>
         <td>${window.LoRaCalculator.sfPercent(csvStats.sf['8'], csvStats.total)}</td>
         <td>${window.LoRaCalculator.sfPercent(csvStats.sf['10'], csvStats.total)}</td>
+        <td>${window.LoRaCalculator.sfPercent(csvStats.sfInvalid, csvStats.total)}</td>
       </tr>`
     ];
 
