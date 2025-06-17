@@ -168,11 +168,7 @@
                       <!-- Akan diisi oleh JS -->
                     </tbody>
                   </table>
-                  <!-- Tambahkan tombol dan canvas untuk grafik SF per interval -->
-                  <div style="margin-top:1.5em;">
-                    <button type="button" onclick="exportChart('sfChart', 'Distribusi_Spreading_Factor_per_Interval.png')" style="margin-bottom:0.5em;">Export Grafik Distribusi SF per Interval</button>
-                    <canvas id="sfChart" height="140" aria-label="Grafik Distribusi SF TTN vs Chirpstack" style="background:#fff;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,0.04);"></canvas>
-                  </div>
+                  
                 </div>
                 <!-- Tambahkan tombol dan canvas untuk diagram PDR -->
                 <div style="margin-top:1.5em;">
@@ -186,6 +182,11 @@
                 <div style="margin-top:1.5em;">
                   <button type="button" onclick="exportChart('snrChart', 'SNR_per_Interval.png')" style="margin-bottom:0.5em;">Export Grafik SNR per Interval</button>
                   <canvas id="snrChart" height="110" aria-label="Diagram SNR TTN vs Chirpstack" style="background:#fff;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,0.04);"></canvas>
+                </div>
+                <!-- Tambahkan tombol dan canvas untuk grafik SF per interval -->
+                <div style="margin-top:1.5em;">
+                  <button type="button" onclick="exportChart('sfChart', 'Distribusi_Spreading_Factor_per_Interval.png')" style="margin-bottom:0.5em;">Export Grafik Distribusi SF per Interval</button>
+                  <canvas id="sfChart" height="140" aria-label="Grafik Distribusi SF TTN vs Chirpstack" style="background:#fff;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,0.04);"></canvas>
                 </div>
               </div>
             </div>
